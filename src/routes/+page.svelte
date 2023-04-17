@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	let publicKeyBase64, privateKeyBase64;
+	// Front-end function using WebCrypto API
 	async function generateKeyPair() {
-		// Generate a key pair using Web Crypto
 		const keyPair = await window.crypto.subtle.generateKey(
 			{
 				name: 'RSA-OAEP',
@@ -13,23 +13,11 @@
 			true,
 			['encrypt', 'decrypt']
 		);
-
-		// Export the public key in a readable format
-		const exportedPublicKey = await window.crypto.subtle.exportKey('spki', keyPair.publicKey);
-		const exportedPublicKeyString = window.btoa(
-			String.fromCharCode.apply(null, new Uint8Array(exportedPublicKey))
-		);
-
-		// Export the private key in a readable format
-		const exportedPrivateKey = await window.crypto.subtle.exportKey('pkcs8', keyPair.privateKey);
-		const exportedPrivateKeyString = window.btoa(
-			String.fromCharCode.apply(null, new Uint8Array(exportedPrivateKey))
-		);
-
-		// Return the public and private keys
+		const publicKey = await window.crypto.subtle.exportKey('jwk', keyPair.publicKey);
+		const privateKey = await window.crypto.subtle.exportKey('jwk', keyPair.privateKey);
 		return {
-			publicKey: exportedPublicKeyString,
-			privateKey: exportedPrivateKeyString
+			publicKey: window.btoa(JSON.stringify(publicKey)),
+			privateKey: window.btoa(JSON.stringify(privateKey))
 		};
 	}
 
@@ -40,6 +28,6 @@
 </script>
 
 {#if publicKeyBase64 && privateKeyBase64}
-	<p>{publicKeyBase64}</p>
-	<p>{privateKeyBase64}</p>
+	<pre>{JSON.stringify(publicKeyBase64)}</pre>
+	<pre>{JSON.stringify(privateKeyBase64)}</pre>
 {/if}

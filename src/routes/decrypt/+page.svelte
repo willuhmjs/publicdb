@@ -1,45 +1,46 @@
 <script lang="ts">
 	let privateKeyString: string, encryptedDataString: string;
-	async function decryptWithPrivateKey(privateKeyString: string, encryptedDataString: string) {
-		// Convert the private key string and encrypted data string to Uint8Arrays
-		const privateKeyArray = new TextEncoder().encode(privateKeyString);
-		const encryptedDataArray = new TextEncoder().encode(encryptedDataString);
+	// Function to decrypt data with a private key in JWK format
+	async function decryptDataWithPrivateKey(encryptedData: string, privateKeyJwkBase64: string) {
+		// Decode the private key JWK from base64
+		const privateKeyJwk = JSON.parse(window.atob(privateKeyJwkBase64));
 
-		// Import the private key using Web Crypto
+		// Import the private key using the WebCrypto API
 		const privateKey = await window.crypto.subtle.importKey(
-			'pkcs8',
-			privateKeyArray,
-			{
-				name: 'RSA-OAEP',
-				hash: { name: 'SHA-256' }
-			},
+			'jwk',
+			privateKeyJwk,
+			{ name: 'RSA-OAEP', hash: { name: 'SHA-256' } },
 			true,
 			['decrypt']
 		);
 
-		// Decrypt the encrypted data using the private key
-		const decryptedDataArray = await window.crypto.subtle.decrypt(
-			{
-				name: 'RSA-OAEP'
-			},
+		// Decode the encrypted data from base64
+		const encryptedDataUint8Array = new Uint8Array(
+			window.atob(encryptedData)
+				.split('')
+				.map((c) => c.charCodeAt(0))
+		);
+
+		// Decrypt the data using the private key
+		const decryptedData = await window.crypto.subtle.decrypt(
+			{ name: 'RSA-OAEP' },
 			privateKey,
-			encryptedDataArray
+			encryptedDataUint8Array
 		);
 
 		// Convert the decrypted data to a string and return it
-		const decryptedDataString = new TextDecoder().decode(decryptedDataArray);
-		return decryptedDataString;
+		return new TextDecoder().decode(decryptedData);
 	}
 </script>
 
 <input type="text" bind:value={privateKeyString} placeholder="private key string" />
 <input type="text" bind:value={encryptedDataString} placeholder="encrypted data string" />
 {#if privateKeyString && encryptedDataString}
-	{#await decryptWithPrivateKey(privateKeyString, encryptedDataString)}
+	{#await decryptDataWithPrivateKey(encryptedDataString, privateKeyString)}
 		<p>loading</p>
 	{:then stuff}
 		{stuff}
-    {:catch error}
-        <p>{error}</p>
+	{:catch error}
+		<p>{error}</p>
 	{/await}
 {/if}
