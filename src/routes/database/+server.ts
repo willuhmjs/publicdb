@@ -3,7 +3,7 @@ import { webcrypto } from 'crypto';
 
 /** @type {import('./$types').RequestHandler} */
 export const POST = async (RequestEvent) => {
-	let { data, publicKey } = await RequestEvent.request.json();
+	const { data, publicKey } = await RequestEvent.request.json();
 	if (!data || !publicKey) throw error(400, 'Missing data or publicKey fields!');
 
 	async function encryptWithPublicKey(publicKey, plainText) {
