@@ -1,13 +1,11 @@
 import { error } from '@sveltejs/kit';
-import crypto from 'crypto';
+import { webcrypto } from 'crypto';
 
 /** @type {import('./$types').RequestHandler} */
 export const POST = async (RequestEvent) => {
 	let { data, publicKey } = await RequestEvent.request.json();
 	if (!data || !publicKey) throw error(400, 'Missing data or publicKey fields!');
-	// Node.js function using Crypto and WebCrypto API
 
-	const webcrypto = crypto.webcrypto;
 	async function encryptWithPublicKey(publicKey, plainText) {
 		const publicKeyJwk = JSON.parse(Buffer.from(publicKey, 'base64').toString('utf8'));
 		const key = await webcrypto.subtle.importKey(
@@ -34,6 +32,5 @@ export const POST = async (RequestEvent) => {
 	}
 
 	const d = await encryptWithPublicKey(publicKey, data);
-	console.log(d);
 	return new Response(`${d}`);
 };

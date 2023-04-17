@@ -1,34 +1,30 @@
 <script lang="ts">
 	let privateKeyString: string, encryptedDataString: string;
 	// Function to decrypt data with a private key in JWK format
-	async function decryptDataWithPrivateKey(encryptedData: string, privateKeyJwkBase64: string) {
-		// Decode the private key JWK from base64
-		const privateKeyJwk = JSON.parse(window.atob(privateKeyJwkBase64));
-
-		// Import the private key using the WebCrypto API
-		const privateKey = await window.crypto.subtle.importKey(
+	async function decryptDataWithPrivateKey(encryptedData, privateKey) {
+		// takes a base64 string and base64 JWK string and decrypts the data
+		const data = window.atob(encryptedData);
+		const key = JSON.parse(window.atob(privateKey));
+		const keyCrypto = await window.crypto.subtle.importKey(
 			'jwk',
-			privateKeyJwk,
-			{ name: 'RSA-OAEP', hash: { name: 'SHA-256' } },
+			key,
+			{
+				name: 'RSA-OAEP',
+				hash: { name: 'SHA-256' }
+			},
 			true,
 			['decrypt']
 		);
 
-		// Decode the encrypted data from base64
-		const encryptedDataUint8Array = new Uint8Array(
-			window.atob(encryptedData)
-				.split('')
-				.map((c) => c.charCodeAt(0))
-		);
-
-		// Decrypt the data using the private key
 		const decryptedData = await window.crypto.subtle.decrypt(
-			{ name: 'RSA-OAEP' },
-			privateKey,
-			encryptedDataUint8Array
+			{
+				name: 'RSA-OAEP'
+			},
+			keyCrypto,
+			// data as a BufferSource
+			new Uint8Array(data.split('').map((char) => char.charCodeAt(0)))
 		);
 
-		// Convert the decrypted data to a string and return it
 		return new TextDecoder().decode(decryptedData);
 	}
 </script>

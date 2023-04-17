@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	let publicKeyBase64, privateKeyBase64;
+	let publicKey: string | null, privateKey: string | null;
 	// Front-end function using WebCrypto API
 	async function generateKeyPair() {
 		const keyPair = await window.crypto.subtle.generateKey(
@@ -22,12 +22,13 @@
 	}
 
 	onMount(async () => {
-		publicKeyBase64 = (await generateKeyPair()).publicKey;
-		privateKeyBase64 = (await generateKeyPair()).privateKey;
+		let keyPairObject = await generateKeyPair();
+		publicKey = keyPairObject.publicKey;
+		privateKey = keyPairObject.privateKey;
 	});
 </script>
 
-{#if publicKeyBase64 && privateKeyBase64}
-	<pre>{JSON.stringify(publicKeyBase64)}</pre>
-	<pre>{JSON.stringify(privateKeyBase64)}</pre>
+{#if publicKey && privateKey}
+	<pre>{JSON.stringify(publicKey)}</pre>
+	<pre>{JSON.stringify(privateKey)}</pre>
 {/if}
