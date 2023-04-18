@@ -13,7 +13,7 @@
 </script>
 
 <section>
-	<h2>Generate a 2048-bit RSA-OAEP keypair for use with the interface below.</h2>
+	<h2>#1: Generate a 2048-bit JWK RSA-OAEP keypair.</h2>
 	<div class="sectionArea">
 		<div class="keyArea">
 			<h3>Public key:</h3>
@@ -24,6 +24,10 @@
 			<code>{privateKey || "Loading..."}</code>
 		</div>
 	</div>
+</section>
+
+<section>
+	<h2>#2: Send encrypted data to the database with the public key.</h2>
 </section>
 <!--
 <input type="text" bind:value={privateKeyString} placeholder="private key string" />
