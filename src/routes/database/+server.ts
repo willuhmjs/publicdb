@@ -6,6 +6,6 @@ export const POST = async (RequestEvent) => {
 	const { data, publicKey } = await RequestEvent.request.json();
 	if (!data || !publicKey) throw error(400, 'Missing data or publicKey fields!');
 
-	const d = await encryptData(publicKey, data);	
-	return new Response(`${d}`);
+	const encryptedData = await encryptData(publicKey, data);	
+	return new Response(encryptedData);
 };

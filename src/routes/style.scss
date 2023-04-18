@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #5e5e5e;
+    background-color: #fff;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+code {
+    word-wrap: break-word;
+    background: #bebebe;
+    word-wrap: break-word;
+    box-decoration-break: clone;
+    padding: .2rem .4rem .3rem;
+    border-radius: .2rem;
+}
+
+section {
+    padding: 0;
+}
+
+.sectionArea {
+    background-color: #f1f1f1;
+    padding: 1rem;
+    margin: 0;
+}
+
+section h2 {
+    margin: 0;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+}
+
+.keyArea h3 {
+    margin-top: 0;
+}
+
+.keyArea:last-child {
+    margin-top: 1rem;
+}
