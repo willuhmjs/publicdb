@@ -1,5 +1,9 @@
 <script lang="ts">
-	let privateKeyString: string, encryptedDataString: string, decryptedDataString: string, publicKeyString: string, plainText: string;
+	let privateKeyString: string,
+		encryptedDataString: string,
+		decryptedDataString: string,
+		publicKeyString: string,
+		plainText: string;
 	// Function to decrypt data with a private key in JWK format
 	import { generateKeyPair, decryptData } from '$lib/frontendCrypto';
 	import { onMount } from 'svelte';
@@ -12,10 +16,10 @@
 	});
 
 	async function encryptionSubmit() {
-		const response = await fetch("/database", {
-			method: "POST",
+		const response = await fetch('/database', {
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json"
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				publicKey: publicKeyString,
@@ -27,7 +31,7 @@
 	}
 
 	async function decryptionSubmit() {
-		decryptedDataString = await decryptData(encryptedDataString, privateKeyString)
+		decryptedDataString = await decryptData(encryptedDataString, privateKeyString);
 	}
 </script>
 
@@ -36,11 +40,11 @@
 	<div class="sectionArea">
 		<div class="subArea">
 			<h3>Public key:</h3>
-			<code>{publicKey || "Loading..."}</code>
+			<code>{publicKey || 'Loading...'}</code>
 		</div>
 		<div class="subArea">
 			<h3>Private key:</h3>
-			<code>{privateKey || "Loading..."}</code>
+			<code>{privateKey || 'Loading...'}</code>
 		</div>
 	</div>
 </section>
@@ -82,6 +86,7 @@
 				<code>{decryptedDataString}</code>
 			</div>
 		{/if}
+	</div>
 </section>
 <!--
 <input type="text" bind:value={privateKeyString} placeholder="private key string" />
