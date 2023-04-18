@@ -20,7 +20,6 @@ export async function generateKeyPair() {
 export async function decryptData(encryptedData: string, privateKey: string) {
 	// takes a base64 string and base64 JWK string and decrypts the data
 	const data = window.atob(encryptedData);
-	console.log(window.atob(privateKey));
 	const key = JSON.parse(window.atob(privateKey));
 	const keyCrypto = await window.crypto.subtle.importKey(
 		'jwk',
