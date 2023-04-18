@@ -48,15 +48,17 @@
 		<div class="subArea">
 			<h3>Encryption information:</h3>
 			<form on:submit|preventDefault={encryptionSubmit}>
-				<input required type="text" bind:value={publicKeyString} placeholder="public key string" />
-				<input required type="text" bind:value={plainText} placeholder="plainText string" />
+				<input required type="text" bind:value={publicKeyString} placeholder="Public Key" />
+				<input required type="text" bind:value={plainText} placeholder="Plain Text" />
 				<input type="submit" value="Submit" />
 			</form>
 		</div>
-		<div class="subArea">
-			<h3>Encrypted data:</h3>
-			<code>{encryptedDataString || "Loading..."}</code>
-		</div>
+		{#if encryptedDataString}
+			<div class="subArea">
+				<h3>Encrypted data:</h3>
+				<code>{encryptedDataString}</code>
+			</div>
+		{/if}
 	</div>
 </section>
 <!--

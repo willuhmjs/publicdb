@@ -46,3 +46,30 @@ section h2 {
 .subArea:last-child {
     margin-top: 1rem;
 }
+
+form {
+    display: flex;
+}
+
+input {
+    padding: .5rem;
+    border: 1px solid #ccc;
+    border-radius: .2rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+}
+
+input[type="text"] {
+    flex: 2;
+    margin-right: .2em;
+}
+
+input[type="submit"] {
+    flex: 1;
+    margin-left: .2em;
+    background-color: #333;
+    color: #fff;
+}
