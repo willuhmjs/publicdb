@@ -10,8 +10,8 @@
 		<div class="subArea">
 			<h3>Decryption information:</h3>
 			<form on:submit|preventDefault={decryptionSubmit}>
-				<input required type="text" bind:value={privateKeyString} placeholder="Private Key" />
 				<input required type="text" bind:value={publicKeyString} placeholder="Public Key" />
+				<input required type="text" bind:value={privateKeyString} placeholder="Private Key" />
 				<input type="submit" value="Submit" />
 			</form>
 		</div>
