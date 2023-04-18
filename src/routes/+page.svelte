@@ -17,11 +17,11 @@
 	<div class="sectionArea">
 		<div class="keyArea">
 			<h3>Public key:</h3>
-			<code>{publicKey}</code>
+			<code>{publicKey || "Loading..."}</code>
 		</div>
 		<div class="keyArea">
 			<h3>Private key:</h3>
-			<code>{privateKey}</code>
+			<code>{privateKey || "Loading..."}</code>
 		</div>
 	</div>
 </section>
