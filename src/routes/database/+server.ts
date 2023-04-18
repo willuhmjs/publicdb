@@ -3,9 +3,9 @@ import { encryptData } from '$lib/server/backendCrypto';
 
 /** @type {import('./$types').RequestHandler} */
 export const POST = async (RequestEvent) => {
-	const { data, publicKey } = await RequestEvent.request.json();
-	if (!data || !publicKey) throw error(400, 'Missing data or publicKey fields!');
+	const { plainText, publicKey } = await RequestEvent.request.json();
+	if (!plainText || !publicKey) throw error(400, 'Missing data or publicKey fields!');
 
-	const encryptedData = await encryptData(publicKey, data);	
-	return new Response(encryptedData);
+	const encryptedDataString = await encryptData(publicKey, plainText);	
+	return new Response(JSON.stringify({ encryptedDataString }));
 };
