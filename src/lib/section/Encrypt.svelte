@@ -23,7 +23,7 @@
 </script>
 
 <section>
-	<h2>#2: Send encrypted data to the database with the public key.</h2>
+	<h2>Send encrypted data to the database with the public key.</h2>
 	<div class="sectionArea">
 		<div class="subArea">
 			<h3>Encryption information:</h3>

@@ -14,7 +14,7 @@
 </script>
 
 <section>
-	<h2>#3. Retrieve (public) and decrypt (private) encrypted data from the database.</h2>
+	<h2>Retrieve and decrypt encrypted data from the database with the key pair.</h2>
 	<div class="sectionArea">
 		<div class="subArea">
 			<h3>Decryption information:</h3>

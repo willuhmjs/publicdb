@@ -10,7 +10,7 @@
 </script>
 
 <section>
-	<h2>#1: Generate a 2048-bit JWK RSA-OAEP keypair.</h2>
+	<h2>Generate a 2048-bit JWK RSA-OAEP key pair.</h2>
 	<div class="sectionArea">
 		<div class="subArea">
 			<h3>Public key:</h3>
