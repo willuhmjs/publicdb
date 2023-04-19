@@ -17,9 +17,13 @@ export const POST = async (RequestEvent) => {
 	const { plainText, publicKey } = await RequestEvent.request.json();
 	if (!plainText || !publicKey) return serverResponse(400, 'Missing data or publicKey fields!');
 	if (plainText.length > 300) return serverResponse(400, 'Data is too long! (max 300 characters)');
-	const encryptedData = await encryptData(publicKey, plainText);
-	await keyv.set(publicKey, encryptedData, 24 * 60 * 60 * 1000);
-	return new Response(JSON.stringify({ encryptedData }));
+	try {
+		const encryptedData = await encryptData(publicKey, plainText);
+		await keyv.set(publicKey, encryptedData, 24 * 60 * 60 * 1000);
+		return serverResponse(200, encryptedData)
+	} catch (error) {
+		return serverResponse(500, 'Unable to encrypt and store data!');
+	}
 };
 
 /** @type {import('./$types').RequestHandler} */

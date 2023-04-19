@@ -16,7 +16,7 @@
             error = data.message;
             return;
         } else error = null;
-		encryptedDataString = data.encryptedData;
+		encryptedDataString = data.message;
 	}
 </script>
 
