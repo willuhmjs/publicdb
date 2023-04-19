@@ -1,7 +1,12 @@
 <script lang="ts">
 	import { decryptData } from '$lib/frontendCrypto';
-    let publicKeyString: string, privateKeyString: string, decryptedDataString: string, encryptedDataString: string;
-    const decryptionSubmit = async () => decryptedDataString = await decryptData(encryptedDataString, privateKeyString);
+    let publicKeyString: string, privateKeyString: string, decryptedDataString: string;;
+    const decryptionSubmit = async () => {
+        const response = await fetch(`/database?publicKey=${encodeURIComponent(publicKeyString)}`);
+        if (response.status !== 200) throw new Error(response.statusText);
+        const { message: encryptedDataString } = await response.json();
+        decryptedDataString = await decryptData(encryptedDataString, privateKeyString)
+    };
 </script>
 
 <section>

@@ -12,7 +12,7 @@
 			})
 		});
 		const data = await response.json();
-		encryptedDataString = data.encryptedDataString;
+		encryptedDataString = data.encryptedData;
 	}
 </script>
 
