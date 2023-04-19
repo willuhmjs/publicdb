@@ -22,7 +22,6 @@ export const POST = async (RequestEvent) => {
 		await keyv.set(publicKey, encryptedData, 24 * 60 * 60 * 1000);
 		return serverResponse(200, encryptedData)
 	} catch (error) {
-		throw error;
 		return serverResponse(500, 'Unable to encrypt and store data!');
 	}
 };
