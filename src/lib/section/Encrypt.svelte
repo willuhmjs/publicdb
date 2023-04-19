@@ -1,5 +1,5 @@
 <script lang="ts">
-    let publicKeyString: string, plainText: string, encryptedDataString: string;
+    let publicKeyString: string, plainText: string, encryptedDataString: string, error: string | null;
     async function encryptionSubmit() {
 		const response = await fetch('/database', {
 			method: 'POST',
@@ -12,6 +12,10 @@
 			})
 		});
 		const data = await response.json();
+        if (response.status !== 200) {
+            error = data.message;
+            return;
+        } else error = null;
 		encryptedDataString = data.encryptedData;
 	}
 </script>
@@ -27,6 +31,12 @@
 				<input type="submit" value="Submit" />
 			</form>
 		</div>
+        {#if error}
+            <div class="subArea">
+                <h3>Error:</h3>
+                <code>{error}</code>
+            </div>
+        {/if}
 		{#if encryptedDataString}
 			<div class="subArea">
 				<h3>Encrypted data:</h3>

@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { decryptData } from '$lib/frontendCrypto';
-    let publicKeyString: string, privateKeyString: string, decryptedDataString: string;;
+    let publicKeyString: string, privateKeyString: string, decryptedDataString: string, error: string | null;
     const decryptionSubmit = async () => {
         const response = await fetch(`/database?publicKey=${encodeURIComponent(publicKeyString)}`);
-        if (response.status !== 200) throw new Error(response.statusText);
         const { message: encryptedDataString } = await response.json();
+        if (response.status !== 200) {
+            error = encryptedDataString;
+            return;
+        } else error = null;
         decryptedDataString = await decryptData(encryptedDataString, privateKeyString)
     };
 </script>
@@ -20,6 +23,12 @@
 				<input type="submit" value="Submit" />
 			</form>
 		</div>
+        {#if error}
+            <div class="subArea">
+                <h3>Error:</h3>
+                <code>{error}</code>
+            </div>
+        {/if}
 		{#if decryptedDataString}
 			<div class="subArea">
 				<h3>Decrypted data:</h3>
