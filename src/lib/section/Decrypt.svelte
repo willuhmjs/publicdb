@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { decryptData } from '$lib/frontendCrypto';
+	import Callout from '$lib/Callout.svelte';
     let publicKeyString: string, privateKeyString: string, decryptedDataString: string, error: string | null;
     const decryptionSubmit = async () => {
         const response = await fetch(`/database?publicKey=${encodeURIComponent(publicKeyString)}`);
@@ -25,8 +26,7 @@
 		</div>
         {#if error}
             <div class="subArea">
-                <h3>Error:</h3>
-                <code>{error}</code>
+                <Callout type="error">{error}</Callout>
             </div>
         {/if}
 		{#if decryptedDataString}

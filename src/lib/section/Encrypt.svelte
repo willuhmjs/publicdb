@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Callout from "$lib/Callout.svelte";
+
     let publicKeyString: string, plainText: string, encryptedDataString: string, error: string | null;
     async function encryptionSubmit() {
 		const response = await fetch('/database', {
@@ -31,12 +33,11 @@
 				<input type="submit" value="Submit" />
 			</form>
 		</div>
-        {#if error}
-            <div class="subArea">
-                <h3>Error:</h3>
-                <code>{error}</code>
-            </div>
-        {/if}
+		{#if error}
+		<div class="subArea">
+			<Callout type="error">{error}</Callout>
+		</div>
+		{/if}
 		{#if encryptedDataString}
 			<div class="subArea">
 				<h3>Encrypted data:</h3>
