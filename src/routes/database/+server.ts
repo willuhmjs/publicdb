@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit';
 import { encryptData } from '$lib/server/backendCrypto';
 import 'dotenv/config';
 import Keyv from "keyv";
