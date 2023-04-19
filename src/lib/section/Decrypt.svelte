@@ -14,7 +14,7 @@
 </script>
 
 <section>
-	<h2>Retrieve and decrypt encrypted data from the database with the key pair.</h2>
+	<h2>Retrieve and decrypt the encrypted data from the database with the key pair.</h2>
 	<div class="sectionArea">
 		<div class="subArea">
 			<h3>Decryption information:</h3>
