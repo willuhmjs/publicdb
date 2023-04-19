@@ -1,10 +1,6 @@
 import { encryptData } from '$lib/server/backendCrypto';
-import 'dotenv/config';
 import Keyv from "keyv";
-const keyv = new Keyv(process.env.MONGO_STRING);
-
-
-keyv.on('error', err => console.error('Keyv connection error:', err));
+const keyv = new Keyv();
 
 const serverResponse = (status: number, message: string) => {
 	return new Response(JSON.stringify({
